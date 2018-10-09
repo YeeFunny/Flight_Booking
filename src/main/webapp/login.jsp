@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,8 +10,8 @@
 	rel="stylesheet"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
+<link href="css/navbar.css" rel="stylesheet">	
 <link href="css/sign_in.css" rel="stylesheet">
-<link href="css/navbar.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
@@ -30,5 +29,6 @@
 				placeholder="Password" required>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 	</form>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

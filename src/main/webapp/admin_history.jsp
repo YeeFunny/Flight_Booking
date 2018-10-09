@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
+	import="com.dto.Booking, com.dto.Flight"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,32 +27,35 @@
 		    <div class="table-responsive">
 		      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		        <thead>
-		        <tr>
-		          <th>Name</th>
-		          <th>Position</th>
-		          <th>Office</th>
-		          <th>Age</th>
-		          <th>Start date</th>
-		          <th>Salary</th>
-		        </tr>
+				    <tr>
+						<th>Booking ID</th>
+						<th>Flight ID</th>
+						<th>Departure City</th>
+						<th>Arrival City</th>
+						<th>Departure Time</th>
+						<th>Arrival Time</th>
+						<th>Seat Class</th>
+						<th>Seat No.</th>
+					</tr>
 		        </thead>
 		        <tbody>
-		        <tr>
-		          <td>Tiger Nixon</td>
-		          <td>System Architect</td>
-		          <td>Edinburgh</td>
-		          <td>61</td>
-		          <td>2011/04/25</td>
-		          <td>$320,800</td>
-		        </tr>
-		        <tr>
-		          <td>Garrett Winters</td>
-		          <td>Accountant</td>
-		          <td>Tokyo</td>
-		          <td>63</td>
-		          <td>2011/07/25</td>
-		          <td>$170,750</td>
-		        </tr>
+		        	<c:forEach items="${bookingHistory}" var="history">
+						<tr>
+							<td>${history.key.getBookingId()}</td>
+							<td>${history.key.getFlightId()}</td>
+							<td>${history.value.getDepartureCity()}</td>
+							<td>${history.value.getArrivalCity()}</td>
+							<td>${history.value.getDepartureTime()}</td>
+							<td>${history.value.getArrivalTime()}</td>
+							<td>${history.key.getFlightClass()}</td>
+							<td>${history.key.getSeatNumber()}</td>
+						</tr>
+					</c:forEach>
+					<c:if test="${bookingHistory==null}">
+						<div class="alert alert-warning" role="alert">
+							Have not found matched records.
+						</div>
+					</c:if>
 		        </tbody>
 		      </table>
 		    </div>

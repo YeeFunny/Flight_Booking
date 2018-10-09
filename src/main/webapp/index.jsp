@@ -1,4 +1,6 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
+	import="com.dto.Flight"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -51,32 +53,35 @@
 	      <div class="table-responsive">
 	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	          <thead>
-	          <tr>
-	            <th>Name</th>
-	            <th>Position</th>
-	            <th>Office</th>
-	            <th>Age</th>
-	            <th>Start date</th>
-	            <th>Salary</th>
-	          </tr>
+		          <tr>
+		            <th>Flight ID</th>
+		            <th>Departure City</th>
+		            <th>Arrival City</th>
+		            <th>Departure Time</th>
+		            <th>Arrival Time</th>
+		            <c:if test="${sessionScope.passengerEmail!=null}">
+						<th>Book</th>
+					</c:if>
+		          </tr>
 	          </thead>
 	          <tbody>
-	          <tr>
-	            <td>Tiger Nixon</td>
-	            <td>System Architect</td>
-	            <td>Edinburgh</td>
-	            <td>61</td>
-	            <td>2011/04/25</td>
-	            <td>$320,800</td>
-	          </tr>
-	          <tr>
-	            <td>Garrett Winters</td>
-	            <td>Accountant</td>
-	            <td>Tokyo</td>
-	            <td>63</td>
-	            <td>2011/07/25</td>
-	            <td>$170,750</td>
-	          </tr>
+          		<c:forEach items="${flightList}" var="flight">
+					<tr>
+						<td>${flight.getFlightId()}</td>
+						<td>${flight.getDepartureCity()}</td>
+						<td>${flight.getArrivalCity()}</td>
+						<td>${flight.getDepartureTime()}</td>
+						<td>${flight.getArrivalTime()}</td>
+						<c:if test="${sessionScope.passengerEmail!=null}">
+							<td><a href="">Book</a></td>
+						</c:if>
+					</tr>
+				</c:forEach>
+				<c:if test="${flightList==null}">
+					<div class="alert alert-warning" role="alert">
+						Have not found matched records.
+					</div>
+				</c:if>
 	          </tbody>
 	        </table>
 	      </div>

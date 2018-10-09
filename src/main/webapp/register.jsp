@@ -21,7 +21,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <form class="needs-validation" action="register" method="post">
+      <form class="needs-validation" action="passenger-register" method="post">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstname">First name</label>

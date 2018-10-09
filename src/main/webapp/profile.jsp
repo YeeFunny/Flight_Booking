@@ -1,33 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Pessenger Profile</title>
+<title>Passenger Profile</title>
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link href="css/navbar.css" rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="navbar.jsp"></jsp:include>
 	<main role="main" class="container">
 	  <div class="col-md-12">
 	    <h4 class="mb-3">Passenger Profile</h4>
-	    <form class="needs-validation" action="updateprofile" method="post">
+	    <form class="needs-validation" action="update-profile" method="post">
 	
 	      <div class="mb-3">
 	        <label for="email">Email</label>
-	        <input type="email" class="form-control" id="email" placeholder="you@example.com" value="" readonly>
+	        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com"
+	        	 value="${profile.getEmail()}" readonly>
 	      </div>
 	
 	      <div class="row">
 	        <div class="col-md-6 mb-3">
 	          <label for="firstName">First name</label>
-	          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value=""
-	                 data-validation="length" data-validation-length="min2" required>
+	          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" 
+	          	value="${profile.getFirstName()}" data-validation="length" data-validation-length="min2" required>
 	        </div>
 	        <div class="col-md-6 mb-3">
 	          <label for="lastName">Last name</label>
-	          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value=""
-	                 data-validation="length" data-validation-length="min2" required>
+	          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" 
+	          	value="${profile.getLastName()}" data-validation="length" data-validation-length="min2" required>
 	        </div>
 	      </div>
 	
@@ -35,62 +41,67 @@
 	        <label>Gender</label>
 	        <br>
 	        <div class="form-check form-check-inline">
-	          <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="MALE" required>
+	          <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="MALE"
+	          	 ${profile.getGender().toString()=='MALE'?'checked':''} required>
 	          <label class="form-check-label" for="inlineRadio1">Male</label>
 	        </div>
 	        <div class="form-check form-check-inline">
-	          <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="FEMALE">
+	          <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="FEMALE"
+	          	${profile.getGender().toString()=='FEMALE'?'checked':''}>
 	          <label class="form-check-label" for="inlineRadio2">Female</label>
 	        </div>
 	      </div>
 	
 	      <div class="mb-3">
 	        <label for="ssn">SSN</label>
-	        <input type="text" class="form-control" id="ssn" name="ssn" placeholder="SSN number" data-validation="length"
-	          data-validation-length="9">
+	        <input type="text" class="form-control" id="ssn" name="ssn" placeholder="SSN number" 
+	        	value="${profile.getSsn()}" data-validation="length" data-validation-length="9">
 	      </div>
 	
 	      <div class="mb-3">
 	        <label for="age">Age</label>
-	        <input type="number" class="form-control" id="age" name="age" placeholder="Age">
+	        <input type="number" class="form-control" id="age" name="age" placeholder="Age" value="${profile.getAge()}">
 	      </div>
 	
 	      <div class="mb-3">
 	        <label for="address">Address</label>
-	        <input type="text" class="form-control" id="address" name="address" placeholder="Your address">
+	        <input type="text" class="form-control" id="address" name="address" placeholder="Your address" 
+	        	value="${profile.getStreet()}">
 	      </div>
 	
 	      <div class="mb-3">
 	        <label for="aptNumber">Apartment Number</label>
-	        <input type="text" class="form-control" id="aptNumber" name="aptNumber" placeholder="Apartment or suite">
+	        <input type="text" class="form-control" id="aptNumber" name="aptNumber" placeholder="Apartment or suite" 
+	        	value="${profile.getApartmentNumber()}">
 	      </div>
 	
 	      <div class="row">
 	        <div class="col-md-5 mb-3">
 	          <label for="city">City</label>
-	          <input type="text" class="form-control" id="city" name="city" placeholder="City">
+	          <input type="text" class="form-control" id="city" name="city" placeholder="City" value="${profile.getCity()}">
 	        </div>
 	        <div class="col-md-4 mb-3">
 	          <label for="state">State</label>
-	          <input type="text" class="form-control" id="state" name="state" placeholder="State">
+	          <input type="text" class="form-control" id="state" name="state" placeholder="State" value="${profile.getState()}">
 	        </div>
 	        <div class="col-md-3 mb-3">
 	          <label for="zip">Zip</label>
-	          <input type="number" class="form-control" id="zip" name="zip" placeholder="Zip Code">
+	          <input type="number" class="form-control" id="zip" name="zip" placeholder="Zip Code" value="${profile.getZip()}">
 	        </div>
 	      </div>
 	
 	      <div class="mb-3">
 	        <label for="telHome">Home Telephone</label>
-	        <input type="text" class="form-control" id="telHome" name="telHome" placeholder="Home telephone number">
+	        <input type="text" class="form-control" id="telHome" name="telHome" placeholder="Home telephone number" 
+	        	value="${profile.getTelHome()}">
 	      </div>
 	
 	      <div class="mb-3">
 	        <label for="telOffice">Office Telephone</label>
-	        <input type="text" class="form-control" id="telOffice" name="telOffice" placeholder="Office telephone number">
+	        <input type="text" class="form-control" id="telOffice" name="telOffice" placeholder="Office telephone number"
+	        	value="${profile.getTelOffice()}">
 	      </div>
 	
-	      <hr class="mb-4">
 	      <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
 	    </form>
 	  </div>
