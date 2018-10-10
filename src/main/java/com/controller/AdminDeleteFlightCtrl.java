@@ -33,7 +33,7 @@ public class AdminDeleteFlightCtrl extends HttpServlet {
 			}
 			response.sendRedirect(request.getContextPath() + "/admin_index");
 		} catch (InputException | FileException | DatabaseException e) {
-			response.sendRedirect(request.getContextPath() + "/error?exception=" + e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/admin_error?exception=" + e.getMessage());
 		}
 	}
 

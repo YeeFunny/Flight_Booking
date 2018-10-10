@@ -37,7 +37,7 @@ public class AdminFlightInfoCtrl extends HttpServlet {
 			}
 			
 		} catch (InputException | FileException | DatabaseException e) {
-			response.sendRedirect(request.getContextPath()+"/error?exception="+ e.getMessage());
+			response.sendRedirect(request.getContextPath()+"/admin_error?exception="+ e.getMessage());
 		}
 
 	}

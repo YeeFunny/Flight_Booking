@@ -34,7 +34,7 @@ public class AdminLoginCtrl extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/admin?errorMsg=Invalid username or password");
 			}
 		} catch (FileException | DatabaseException e) {
-			response.sendRedirect(request.getContextPath()+"/error?exception="+ e.getMessage());
+			response.sendRedirect(request.getContextPath()+"/admin_error?exception="+ e.getMessage());
 		}
 
 	}

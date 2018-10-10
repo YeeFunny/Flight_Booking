@@ -84,7 +84,7 @@ public class BookFlightCtrl extends HttpServlet {
 			}
 			
 			for (int i = 0; i < firstNo; i++) {
-				Booking booking = new Booking(passId, fliId, Integer.parseInt(1 + "" + firstLeft--)
+				Booking booking = new Booking(passId, fliId, Integer.parseInt(2 + "" + firstLeft--)
 						, baggageNo, FlightClass.FIRSTCLASS, BookingStatus.RESERVED);
 				int bookingId = bookingDao.BookingFlight(booking);
 				if (bookingId == 0) {
@@ -98,7 +98,7 @@ public class BookFlightCtrl extends HttpServlet {
 			}
 			
 			for (int i = 0; i < economyNo; i++) {
-				Booking booking = new Booking(passId, fliId, Integer.parseInt(1 + "" + economyLeft--)
+				Booking booking = new Booking(passId, fliId, Integer.parseInt(3 + "" + economyLeft--)
 						, baggageNo, FlightClass.ECONOMYCLASS, BookingStatus.RESERVED);
 				int bookingId = bookingDao.BookingFlight(booking);
 				if (bookingId == 0) {

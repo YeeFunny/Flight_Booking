@@ -68,6 +68,14 @@
 	  <url-pattern>/admin_addflight</url-pattern>
 	</servlet-mapping>
 	<servlet>
+	  <servlet-name>admin_error</servlet-name>
+	  <jsp-file>/admin_error.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>admin_error</servlet-name>
+	  <url-pattern>/admin_error</url-pattern>
+	</servlet-mapping>
+	<servlet>
 	  <servlet-name>login</servlet-name>
 	  <jsp-file>/login.jsp</jsp-file>
 	</servlet>

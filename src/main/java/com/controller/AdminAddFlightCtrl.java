@@ -63,7 +63,7 @@ public class AdminAddFlightCtrl extends HttpServlet {
 				throw new InputException("Invalid input information during add flight.");
 			}
 		} catch (DatabaseException | InputException | FileException e) {
-			response.sendRedirect(request.getContextPath() + "/error?exception=" + e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/admin_error?exception=" + e.getMessage());
 		}
 	}
 

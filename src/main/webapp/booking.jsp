@@ -23,20 +23,20 @@
 	      <div class="row">
           	<input type="hidden" id="flightId" name="flightId" value="${seat.getFlightId()}">
           	<input type="hidden" id="oldVersion" name="oldVersion" value="${seat.getVersion()}">
-	        <div class="col-md-3 mb-3">
+	        <div class="col-md-3 mb-3" id="tickets">
 	          <label for="business">Business (${seat.getBusinessLeft()} left)</label>
 	          <input type="hidden" id="businessLeft" name="businessLeft" value="${seat.getBusinessLeft()}">
-	          <input type="number" class="form-control" id="business" name="business" placeholder="Number of Tickets">
+	          <input type="number" class="form-control ticket-group" id="business" name="business" placeholder="Number of Tickets">
 	        </div>
 	        <div class="col-md-3 mb-3">
 	          <label for="firstClass">First Class (${seat.getFirstLeft()} left)</label>
 	          <input type="hidden" id="firstLeft" name="firstLeft" value="${seat.getFirstLeft()}">
-	          <input type="number" class="form-control" id="firstClass" name="firstClass" placeholder="Number of Tickets">
+	          <input type="number" class="form-control ticket-group" id="firstClass" name="firstClass" placeholder="Number of Tickets">
 	        </div>
 	        <div class="col-md-3 mb-3">
 	          <label for="economy">Economy (${seat.getEconomyLeft()} left)</label>
 	          <input type="hidden" id="economyLeft" name="economyLeft" value="${seat.getEconomyLeft()}">
-	          <input type="number" class="form-control" id="economy" name="economy" placeholder="Number of Tickets">
+	          <input type="number" class="form-control ticket-group" id="economy" name="economy" placeholder="Number of Tickets">
 	        </div>
 	        <div class="col-md-3 mb-3">
 	          <label for="baggage">No. of Baggage</label>
@@ -87,17 +87,14 @@
 	        </div>
 	      </div>
 	
-	      <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+	      <button class="btn btn-primary btn-lg btn-block" id="bookBtn" type="submit">Submit</button>
 	    </form>
 	  </div>
 	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>
-	<script>
-	  $.validate({
-	    modules : 'date, security'
-	  });
-	</script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script src="js/book.js"></script>
 </body>
 </html>

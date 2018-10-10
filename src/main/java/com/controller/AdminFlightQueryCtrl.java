@@ -40,7 +40,7 @@ public class AdminFlightQueryCtrl extends HttpServlet {
 				request.getRequestDispatcher("/admin_index.jsp").forward(request, response);
 			}	
 		} catch (FileException | DatabaseException | InputException e) {
-			response.sendRedirect(request.getContextPath() + "/error?exception=" + e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/admin_error?exception=" + e.getMessage());
 		}
 	}
 
