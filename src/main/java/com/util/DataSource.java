@@ -27,6 +27,7 @@ public class DataSource {
 					ds.setMaxConnLifetimeMillis(3000);
 					ds.setMaxTotal(100);
 					ds.setMaxWaitMillis(3000);
+					ds.setDefaultAutoCommit(false);
 				}
 			}
 		}

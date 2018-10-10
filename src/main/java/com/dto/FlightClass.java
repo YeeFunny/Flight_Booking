@@ -1,5 +1,5 @@
 package com.dto;
 
 public enum FlightClass {
-	BUSINESS, FIRSTCLASS, ECONOMY
+	BUSINESSCLASS, FIRSTCLASS, ECONOMYCLASS
 }

@@ -20,6 +20,8 @@ import com.util.EnumUtil;
 public class RegisterCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	PassengerDao passengerDao = new PassengerDaoImpl();
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");
@@ -27,7 +29,6 @@ public class RegisterCtrl extends HttpServlet {
 		String password = request.getParameter("pass_confirmation");
 		Gender gender = EnumUtil.stringToGender(request.getParameter("gender"));
 		
-		PassengerDao passengerDao = new PassengerDaoImpl();
 		try {
 			Passenger passenger = passengerDao.getPassengerByEmail(email);
 			if (passenger == null) {

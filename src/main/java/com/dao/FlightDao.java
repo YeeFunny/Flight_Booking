@@ -1,6 +1,6 @@
 package com.dao;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.dto.Flight;
@@ -12,7 +12,7 @@ public interface FlightDao {
 	
 	public Flight getFlightById(int flightId) throws FileException, DatabaseException;
 	
-	public List<Flight> getFlightsByCityDate(String depCity, String arrCity, LocalDateTime depTime) throws FileException, DatabaseException;
+	public List<Flight> getFlightsByCityDate(String depCity, String arrCity, LocalDate depTime) throws FileException, DatabaseException;
 	
 	public int updateFlight(Flight flight) throws DatabaseException, FileException;
 	

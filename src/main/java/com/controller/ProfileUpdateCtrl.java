@@ -19,6 +19,8 @@ import com.util.EnumUtil;
 public class ProfileUpdateCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	PassengerDao passengerDao = new PassengerDaoImpl();
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -38,7 +40,6 @@ public class ProfileUpdateCtrl extends HttpServlet {
 
 		Passenger passenger = new Passenger(firstName, lastName, email, EnumUtil.stringToGender(gender), ssn, age,
 				address, aptNumber, city, state, zip, telHome, telOffice);
-		PassengerDao passengerDao = new PassengerDaoImpl();
 		try {
 			int row = passengerDao.updatePassenger(passenger);
 			if (row == 1) {

@@ -18,12 +18,13 @@ import com.exception.FileException;
 public class PassengerLoginCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	PassengerDao passengerDao = new PassengerDaoImpl();
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		PassengerDao passengerDao = new PassengerDaoImpl();
 		try {
 			Passenger passenger = passengerDao.passengerLogin(email, password);
 			if (passenger != null) {

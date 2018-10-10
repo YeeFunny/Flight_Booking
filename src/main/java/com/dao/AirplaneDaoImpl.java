@@ -18,14 +18,14 @@ public class AirplaneDaoImpl implements AirplaneDao{
 	public Airplane getAirplaneById(int airplaneId) throws FileException, DatabaseException {
 		Airplane airplane = null;
 		ResultSet set = null;
-		String sql = "select airplane_id as id, producer, firstclass_capacity as firstcap, "
-				+ "economyclass_capacity as economycap from airplane where airplane_id = ?";
+		String sql = "select airplane_id as id, producer, firstclass_capacity as firstcap, economyclass_capacity as economycap,"
+				+" businessclass_capacity as businessCap from airplane where airplane_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setInt(1, airplaneId);
 			set = ps.executeQuery();
 			if (set.next()) {
 				airplane = new Airplane(set.getInt("id"), set.getInt("firstcap"), 
-						set.getInt("economycap"), set.getString("producer"));
+						set.getInt("economycap"), set.getString("producer"), set.getInt("businessCap"));
 			}
 			if (set != null)
 				set.close();
@@ -39,14 +39,13 @@ public class AirplaneDaoImpl implements AirplaneDao{
 	public List<Airplane> getAirplaneList() throws FileException, DatabaseException {
 		List<Airplane> airplaneList = new ArrayList<>();
 		ResultSet set = null;
-		String sql = "select AIRPLANE_ID as id, PRODUCER, FIRSTCLASS_CAPACITY as firstcap, "
-				+ "ECONOMYCLASS_CAPACITY as economycap, BUSINESSCLASS_CAPACITY as businessCap from airplane";
+		String sql = "select AIRPLANE_ID as id, PRODUCER, FIRSTCLASS_CAPACITY as first, "
+				+ "ECONOMYCLASS_CAPACITY as economy, BUSINESSCLASS_CAPACITY as business FROM AIRPLANE";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 			set = ps.executeQuery();
 			while (set.next()) {
-				System.out.println("Get airplanes");
-				Airplane airplane = new Airplane(set.getInt("id"), set.getInt("firstcap"), 
-						set.getInt("economycap"), set.getString("producer"), set.getInt("businessCap"));
+				Airplane airplane = new Airplane(set.getInt("id"), set.getInt("first"), set.getInt("economy"), 
+						set.getString("PRODUCER"), set.getInt("business"));
 				airplaneList.add(airplane);
 			}
 			if (set != null)

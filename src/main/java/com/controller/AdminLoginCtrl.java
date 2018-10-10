@@ -16,13 +16,14 @@ import com.exception.FileException;
 @WebServlet("/admin-login")
 public class AdminLoginCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	AdminDao adminDao = new AdminDaoImpl();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		AdminDao adminDao = new AdminDaoImpl();
 		try {
 			String adminName = adminDao.adminLogin(username, password);
 			if (adminName != null && !"".equals(adminName)) {

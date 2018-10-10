@@ -101,6 +101,55 @@
 		<servlet-name>AdminAddFlightCtrl</servlet-name>
 		<servlet-class>com.controller.AdminAddFlightCtrl</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>FlightQueryCtrl</display-name>
+		<servlet-name>FlightQueryCtrl</servlet-name>
+		<servlet-class>com.controller.FlightQueryCtrl</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AdminFlightInfoCtrl</display-name>
+		<servlet-name>AdminFlightInfoCtrl</servlet-name>
+		<servlet-class>com.controller.AdminFlightInfoCtrl</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AdminDeleteFlightCtrl</display-name>
+		<servlet-name>AdminDeleteFlightCtrl</servlet-name>
+		<servlet-class>com.controller.AdminDeleteFlightCtrl</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AdminFlightQueryCtrl</display-name>
+		<servlet-name>AdminFlightQueryCtrl</servlet-name>
+		<servlet-class>com.controller.AdminFlightQueryCtrl</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AdminEditFlightCtrl</display-name>
+		<servlet-name>AdminEditFlightCtrl</servlet-name>
+		<servlet-class>com.controller.AdminEditFlightCtrl</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>BookFlightCtrl</display-name>
+		<servlet-name>BookFlightCtrl</servlet-name>
+		<servlet-class>com.controller.BookFlightCtrl</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>FlightInfoCtrl</display-name>
+		<servlet-name>FlightInfoCtrl</servlet-name>
+		<servlet-class>com.controller.FlightInfoCtrl</servlet-class>
+	</servlet>
 	<servlet-mapping>
 	  <servlet-name>error</servlet-name>
 	  <url-pattern>/error</url-pattern>
@@ -112,6 +161,34 @@
 	<servlet-mapping>
 		<servlet-name>AdminAddFlightCtrl</servlet-name>
 		<url-pattern>/AdminAddFlightCtrl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FlightQueryCtrl</servlet-name>
+		<url-pattern>/FlightQueryCtrl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminFlightInfoCtrl</servlet-name>
+		<url-pattern>/AdminFlightInfoCtrl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminDeleteFlightCtrl</servlet-name>
+		<url-pattern>/AdminDeleteFlightCtrl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminFlightQueryCtrl</servlet-name>
+		<url-pattern>/AdminFlightQueryCtrl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminEditFlightCtrl</servlet-name>
+		<url-pattern>/AdminEditFlightCtrl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BookFlightCtrl</servlet-name>
+		<url-pattern>/BookFlightCtrl</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FlightInfoCtrl</servlet-name>
+		<url-pattern>/FlightInfoCtrl</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

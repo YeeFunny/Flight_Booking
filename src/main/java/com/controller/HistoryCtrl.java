@@ -24,10 +24,12 @@ import com.exception.FileException;
 public class HistoryCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	BookingDao bookingDao = new BookingDaoImpl();
+	FlightDao flightDao = new FlightDaoImpl();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		BookingDao bookingDao = new BookingDaoImpl();
-		FlightDao flightDao = new FlightDaoImpl();
+		
 		try {
 			List<Booking> bookingHistory = bookingDao.BookingHistory();
 			Map<Booking, Flight> map = new HashMap<>();
@@ -38,7 +40,7 @@ public class HistoryCtrl extends HttpServlet {
 							+ "/error?exception=Cannot get the flight information");
 				map.put(booking, flight);
 			}
-			request.setAttribute("bookingHistory", bookingHistory);
+			request.setAttribute("bookingHistory", map);
 			request.getRequestDispatcher("/admin_history.jsp").forward(request, response);
 		} catch (FileException | DatabaseException e) {
 			response.sendRedirect(request.getContextPath() + "/error?exception=" + e.getMessage());

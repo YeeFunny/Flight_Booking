@@ -25,12 +25,13 @@ import com.exception.FileException;
 public class PassengerHistoryCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	BookingDao bookingDao = new BookingDaoImpl();
+	FlightDao flightDao = new FlightDaoImpl();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		Object passengerId = session.getAttribute("passengerId");
-		BookingDao bookingDao = new BookingDaoImpl();
-		FlightDao flightDao = new FlightDaoImpl();
 		if (passengerId != null) {
 			try {
 				int id = (int) passengerId;

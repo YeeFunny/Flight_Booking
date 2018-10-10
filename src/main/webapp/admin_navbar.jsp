@@ -9,7 +9,7 @@
     <ul class="navbar-nav mr-auto">
     	<c:if test="${sessionScope.adminName!=null}">
     		<li class="nav-item active">
-    			<a class="nav-link" href="airplaneinfo">Add Flight</a>
+    			<a class="nav-link" href="admin_addflight">Add Flight</a>
       		</li>
     		<li class="nav-item active">
     			<a class="nav-link" href="allhistory">History</a>

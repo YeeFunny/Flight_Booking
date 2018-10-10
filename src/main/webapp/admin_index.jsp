@@ -18,7 +18,7 @@
 <body>
 	<jsp:include page="admin_navbar.jsp"></jsp:include>
 	<main role="main" class="container">
-		<form class="needs-validation" action="#" method="post">
+		<form class="needs-validation" action="adminflightquery" method="post">
 		    <div style="padding: 2rem 1rem; margin-bottom: 2rem; background-color: #e9ecef; border-radius: .3rem;">
 		    	<h1>Flight Query</h1>
 		      	<div class="row mt-4">
@@ -45,43 +45,56 @@
 		      	</div>
 			</div>
 	  	</form>
-	  	<div class="card mb-3">
-	    	<div class="card-header">
-		      	<i class="fas fa-table"></i>
-		      	Flight Information
-		    </div>
-		    <div class="card-body">
-		      	<div class="table-responsive">
-		        	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-		          		<thead>
-							<tr>
-							  	<th>Flight ID</th>
-							  	<th>Departure City</th>
-							  	<th>Arrival City</th>
-							  	<th>Departure Time</th>
-							  	<th>Arrival Time</th>
-							</tr>
-		          		</thead>
-		          		<tbody>
-	          				<c:forEach items="${flightList}" var="flight">
-								<tr>
-									<td>${flight.getFlightId()}</td>
-									<td>${flight.getDepartureCity()}</td>
-									<td>${flight.getArrivalCity()}</td>
-									<td>${flight.getDepartureTime()}</td>
-									<td>${flight.getArrivalTime()}</td>
-								</tr>
-							</c:forEach>
-							<c:if test="${flightList==null}">
-								<div class="alert alert-warning" role="alert">
-									Have not found matched records.
-								</div>
-							</c:if>
-		          		</tbody>
-		        	</table>
-		      	</div>
-		    </div>
-  		</div>
+	  	<c:if test="${flightList.size()!=null}">
+		  	<div class="card mb-3">
+		    	<div class="card-header">
+			      	<i class="fas fa-table"></i>
+			      	Flight Information
+			    </div>
+			    <div class="card-body">
+				    <c:if test="${flightList.size()==0}">
+						<div class="alert alert-warning" role="alert">Have not found
+							matched records.</div>
+					</c:if>
+					<c:if test="${flightList.size()>0}">
+				      	<div class="table-responsive">
+				        	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				          		<thead>
+									<tr>
+									  	<th>Flight ID</th>
+									  	<th>Departure City</th>
+									  	<th>Arrival City</th>
+									  	<th>Departure Time</th>
+									  	<th>Arrival Time</th>
+									  	<c:if test="${sessionScope.adminName!=null}">
+											<th>Operation</th>
+										</c:if>
+									</tr>
+				          		</thead>
+				          		<tbody>
+			          				<c:forEach items="${flightList}" var="flight">
+										<tr>
+											<td>${flight.getFlightId()}</td>
+											<td>${flight.getDepartureCity()}</td>
+											<td>${flight.getArrivalCity()}</td>
+											<td>${flight.getDepartureTime()}</td>
+											<td>${flight.getArrivalTime()}</td>
+											<c:if test="${sessionScope.adminName!=null}">
+												<td>
+													<a href="adminflightinfo?flightId=${flight.getFlightId()}">Edit</a>
+													&nbsp;&nbsp;&nbsp;&nbsp;
+													<a href="adminflightdelete?flightId=${flight.getFlightId()}">Delete</a>
+												</td>
+											</c:if>
+										</tr>
+									</c:forEach>
+				          		</tbody>
+				        	</table>
+				      	</div>
+			      	</c:if>
+			    </div>
+	  		</div>
+	  	</c:if>
 	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dto.Booking;
-import com.dto.Flight;
 import com.exception.DatabaseException;
 import com.exception.FileException;
 import com.util.DatabaseUtil;
@@ -62,8 +61,40 @@ public class BookingDaoImpl implements BookingDao{
 	}
 
 	@Override
-	public int BookingFlight(Flight flight, int noOfSeat) {
-		return 0;
+	public int BookingFlight(Booking booking) throws DatabaseException, FileException {
+		int booking_id = 0;
+		String insertSql = "insert into booking(booking_id, passenger_id, flight_id, seat_number, baggage, class, status) "
+				+ "values (booking_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		String querySql = "select booking_seq.currval as id from dual";
+		ResultSet set = null;
+		try (Connection conn = DatabaseUtil.getConnection(); 
+				PreparedStatement insertPS = conn.prepareStatement(insertSql);
+				PreparedStatement queryPS = conn.prepareStatement(querySql);) {
+			insertPS.setInt(1, booking.getPassangerId());
+			insertPS.setInt(2, booking.getFlightId());
+			insertPS.setInt(3, booking.getSeatNumber());
+			insertPS.setInt(4, booking.getBaggage());
+			insertPS.setString(5, booking.getFlightClass().toString());
+			insertPS.setString(6, booking.getStatus().toString());
+			int row = insertPS.executeUpdate();
+			if (row == 0) {
+				throw new DatabaseException("Unable to book ticket.");
+			}
+			set = queryPS.executeQuery();
+			if (set.next()) {
+				booking_id = set.getInt("id");
+			}
+			if (booking_id == 0) {
+				throw new DatabaseException("Unable to book ticket.");
+			}
+			if (set != null) {
+				set.close();
+			}
+			conn.commit();
+		} catch (SQLException e) {
+			throw new DatabaseException("Unable to book ticket: " + e.getMessage());
+		}
+		return booking_id;
 	}
 
 }

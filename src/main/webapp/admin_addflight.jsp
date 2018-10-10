@@ -37,7 +37,7 @@
 	      <div class="row">
 	        <div class="col-md-3 mb-3">
 	          <label for="deptDate">Departure Date</label>
-	          <input type="time" class="form-control" id="deptDate" name="deptDate" required>
+	          <input type="date" class="form-control" id="deptDate" name="deptDate" required>
 	        </div>
 	        <div class="col-md-3 mb-3">
 	          <label for="deptTime">Departure Time</label>
@@ -45,7 +45,7 @@
 	        </div>
 	        <div class="col-md-3 mb-3">
 	          <label for="arrDate">Arrival Date</label>
-	          <input type="time" class="form-control" id="arrDate" name="arrDate" required>
+	          <input type="date" class="form-control" id="arrDate" name="arrDate" required>
 	        </div>
 	        <div class="col-md-3 mb-3">
 	          <label for="arrTime">Arrival Time</label>
@@ -57,20 +57,22 @@
 	
 	      <h4 class="mb-3">Airplane</h4>
 	      <div class="row">
-	        <div class="col-md-4 mb-3">
+	        <div class="col-md-3 mb-3">
 	          <label for="country">Airplane</label>
-	          <select class="custom-select d-block w-100" id="country" required>
-	            <option value="" selected="selected">Choose...</option>
-	            <c:forEach items="${airplanes}" var="airplane">
-	            	<option value="${airplane.getAirplaneId()}">${airplane.getAirplaneId()}</option>
-				</c:forEach>
+	          <select class="custom-select d-block w-100" id="airplaneId" name="airplaneId" required>
+	          		<option value="" selected="selected">Choose...</option>
 	          </select>
 	        </div>
-	        <div class="col-md-4 mb-3">
+	        <div class="col-md-3 mb-3">
+	          <label for="businessCap">Business-class Capacity</label>
+	          <input type="text" class="form-control" id="businessCap" name="businessCap"
+	          	 value="" readonly>
+	        </div>
+	        <div class="col-md-3 mb-3">
 	          <label for="firstCap">First-class Capacity</label>
 	          <input type="text" class="form-control" id="firstCap" name="firstCap" value="" readonly>
 	        </div>
-	        <div class="col-md-4 mb-3">
+	        <div class="col-md-3 mb-3">
 	          <label for="economyCap">Economy-class Capacity</label>
 	          <input type="text" class="form-control" id="economyCap" name="economyCap" value="" readonly>
 	        </div>
@@ -81,6 +83,6 @@
 	  </div>
 	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
-
+	<script src="js/airplane_info.js"></script>
 </body>
 </html>

@@ -15,7 +15,7 @@ public class ConnectionFilter implements Filter {
 		if (connError != null) {
 			String error = String.valueOf(connError);
 			request.getServletContext().removeAttribute("connError");
-			request.setAttribute("errorMsg", error);
+			request.setAttribute("exception", error);
 			request.getRequestDispatcher("/error.jsp").forward(request, response);
 		}
 		chain.doFilter(request, response);

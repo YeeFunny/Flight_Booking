@@ -52,8 +52,10 @@ public class PassengerDaoImpl implements PassengerDao{
 						set.getString("city"), set.getString("state"), set.getInt("zip"), 
 						set.getString("tel_home"), set.getString("tel_office"));
 			}
+			if (set != null)
+				set.close();
 		} catch (SQLException e) {
-			throw new DatabaseException("Unable to register passenger: " + e.getMessage());
+			throw new DatabaseException("Unable to get passenger information: " + e.getMessage());
 		}
 		return passenger;
 	}
@@ -82,6 +84,7 @@ public class PassengerDaoImpl implements PassengerDao{
 			}
 			if (set != null)
 				set.close();
+			conn.commit();
 		} catch (SQLException e) {
 			throw new DatabaseException("Unable to register passenger: " + e.getMessage());
 		}
@@ -111,6 +114,7 @@ public class PassengerDaoImpl implements PassengerDao{
 			row = ps.executeUpdate();
 			if (row == 0)
 				throw new DatabaseException("Unable to update passenger.");
+			conn.commit();
 		} catch (SQLException e) {
 			throw new DatabaseException("Unable to update passenger: " + e.getMessage());
 		}

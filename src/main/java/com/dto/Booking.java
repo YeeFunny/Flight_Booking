@@ -12,6 +12,17 @@ public class Booking {
 	public Booking() {
 		super();
 	}
+	
+	public Booking(int passangerId, int flightId, int seatNumber, int baggage, FlightClass flightClass,
+			BookingStatus status) {
+		super();
+		this.passangerId = passangerId;
+		this.flightId = flightId;
+		this.seatNumber = seatNumber;
+		this.baggage = baggage;
+		this.flightClass = flightClass;
+		this.status = status;
+	}
 
 	public Booking(int bookingId, int passangerId, int flightId, int seatNumber, int baggage, FlightClass flightClass,
 			BookingStatus status) {

@@ -10,14 +10,6 @@ public class Airplane {
 	public Airplane() {
 		super();
 	}
-
-	public Airplane(int airplaneId, int firstClassCap, int economyClassCap, String producer) {
-		super();
-		this.airplaneId = airplaneId;
-		this.firstClassCap = firstClassCap;
-		this.economyClassCap = economyClassCap;
-		this.producer = producer;
-	}
 	
 	public Airplane(int airplaneId, int firstClassCap, int economyClassCap, String producer, int businessClassCap) {
 		super();

@@ -18,11 +18,12 @@ import com.exception.FileException;
 public class ProfileInfoCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	PassengerDao passengerDao = new PassengerDaoImpl();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		String passengerEmail = (String) session.getAttribute("passengerEmail");
-		PassengerDao passengerDao = new PassengerDaoImpl();
 
 		if (passengerEmail != null && !"".equals(passengerEmail)) {
 			try {
@@ -45,7 +46,6 @@ public class ProfileInfoCtrl extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

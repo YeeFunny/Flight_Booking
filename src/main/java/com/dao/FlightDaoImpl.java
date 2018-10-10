@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +36,13 @@ public class FlightDaoImpl implements FlightDao {
 				if (set.next()) {
 					flightId = set.getInt("id");
 				}
+				if (flightId == 0) {
+					throw new DatabaseException("Unable to insert flight information.");
+				}
 			}
 			if (set != null)
 				set.close();
+			conn.commit();
 		} catch (SQLException e) {
 			throw new DatabaseException("Unable to insert flight information: " + e.getMessage());
 		}
@@ -67,20 +71,18 @@ public class FlightDaoImpl implements FlightDao {
 		return flight;
 	}
 
-	/**
-	 * Unfinished
-	 */
 	@Override
-	public List<Flight> getFlightsByCityDate(String depCity, String arrCity, LocalDateTime depTime)
+	public List<Flight> getFlightsByCityDate(String depCity, String arrCity, LocalDate depTime)
 			throws FileException, DatabaseException {
 		ResultSet set = null;
 		List<Flight> flightList = new ArrayList<>();
 		String sql = "select flight_id, departure_time, arrival_time, departure_city, arrival_city, "
-				+ "airplane_id from flight where departure_city like '%?%' and arrival_city like '%?%' and  ";
+				+ "airplane_id from flight where departure_city like ? and arrival_city like ? "
+				+ " and trunc(departure_time) = to_Date(?, 'YYYY-MM-DD')";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
-			ps.setString(1, depCity);
-			ps.setString(2, arrCity);
-			ps.setTimestamp(3, Timestamp.valueOf(depTime));
+			ps.setString(1, "%" + depCity + "%");
+			ps.setString(2, "%" + arrCity + "%");
+			ps.setString(3, depTime.toString());
 			set = ps.executeQuery();
 			while (set.next()) {
 				Flight flight = new Flight(set.getInt("flight_id"),
@@ -100,21 +102,21 @@ public class FlightDaoImpl implements FlightDao {
 	@Override
 	public int updateFlight(Flight flight) throws DatabaseException, FileException {
 		int row = 0;
-		String sql = "update flight set departure_time = ?, arrival_time = ?, departure_city = ?, arrival_city = ?, "
-				+ "airplane_id = ? where flight_id = ?";
+		String sql = "update flight set departure_time = ?, arrival_time = ?, departure_city = ?, arrival_city = ? "
+				+ "where flight_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setTimestamp(1, Timestamp.valueOf(flight.getDepartureTime()));
 			ps.setTimestamp(2, Timestamp.valueOf(flight.getArrivalTime()));
 			ps.setString(3, flight.getDepartureCity());
 			ps.setString(4, flight.getArrivalCity());
-			ps.setInt(5, flight.getAirplaneId());
-			ps.setInt(6, flight.getFlightId());
+			ps.setInt(5, flight.getFlightId());
 			row = ps.executeUpdate();
 			if (row == 0) {
 				throw new DatabaseException("Unable to update flight information.");
 			}
+			conn.commit();
 		} catch (SQLException e) {
-			throw new DatabaseException("Unable to get flight information: " + e.getMessage());
+			throw new DatabaseException("Unable to update flight information: " + e.getMessage());
 		}
 		return row;
 	}
@@ -122,15 +124,16 @@ public class FlightDaoImpl implements FlightDao {
 	@Override
 	public int deleteFlight(int flightId) throws FileException, DatabaseException {
 		int row = 0;
-		String sql = "delete from flight where flightId = ?";
+		String sql = "delete from flight where flight_id = ?";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setInt(1, flightId);
 			row = ps.executeUpdate();
 			if (row == 0) {
-				throw new DatabaseException("Unable to insert flight information.");
+				throw new DatabaseException("Unable to delete flight information.");
 			}
+			conn.commit();
 		} catch (SQLException e) {
-			throw new DatabaseException("Unable to insert flight information: " + e.getMessage());
+			throw new DatabaseException("Unable to delete flight information: " + e.getMessage());
 		}
 		return row;
 	}

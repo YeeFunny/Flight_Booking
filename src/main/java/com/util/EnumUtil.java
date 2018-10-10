@@ -54,7 +54,7 @@ public class EnumUtil {
 		FlightClass flightClass = null;
 		switch (str.toUpperCase()) {
 			case "ECONOMY":
-				flightClass = FlightClass.ECONOMY;
+				flightClass = FlightClass.ECONOMYCLASS;
 				break;
 
 			case "FIRSTCLASS":
@@ -62,7 +62,7 @@ public class EnumUtil {
 				break;
 				
 			case "BUSINESS":
-				flightClass = FlightClass.BUSINESS;
+				flightClass = FlightClass.BUSINESSCLASS;
 				break;
 		}
 		return flightClass;

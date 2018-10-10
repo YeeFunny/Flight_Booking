@@ -13,6 +13,26 @@ public class Flight {
 	public Flight() {super();}
 	
 	public Flight(int flightId, LocalDateTime departureTime, LocalDateTime arrivalTime, String departureCity,
+			String arrivalCity) {
+		super();
+		this.flightId = flightId;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.departureCity = departureCity;
+		this.arrivalCity = arrivalCity;
+	}
+
+	public Flight(LocalDateTime departureTime, LocalDateTime arrivalTime, String departureCity,
+			String arrivalCity, int airplaneId) {
+		super();
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.departureCity = departureCity;
+		this.arrivalCity = arrivalCity;
+		this.airplaneId = airplaneId;
+	}
+	
+	public Flight(int flightId, LocalDateTime departureTime, LocalDateTime arrivalTime, String departureCity,
 			String arrivalCity, int airplaneId) {
 		super();
 		this.flightId = flightId;
@@ -22,6 +42,7 @@ public class Flight {
 		this.arrivalCity = arrivalCity;
 		this.airplaneId = airplaneId;
 	}
+
 
 	public int getFlightId() {
 		return flightId;
