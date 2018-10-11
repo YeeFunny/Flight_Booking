@@ -77,8 +77,8 @@ public class FlightDaoImpl implements FlightDao {
 		ResultSet set = null;
 		List<Flight> flightList = new ArrayList<>();
 		String sql = "select flight_id, departure_time, arrival_time, departure_city, arrival_city, "
-				+ "airplane_id from flight where departure_city like ? and arrival_city like ? "
-				+ " and trunc(departure_time) = to_Date(?, 'YYYY-MM-DD')";
+				+ "airplane_id from flight where upper(departure_city) like upper(?) and "
+				+ "upper(arrival_city) like upper(?) and trunc(departure_time) = to_Date(?, 'YYYY-MM-DD')";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setString(1, "%" + depCity + "%");
 			ps.setString(2, "%" + arrCity + "%");

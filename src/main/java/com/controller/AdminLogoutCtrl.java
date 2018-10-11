@@ -11,17 +11,18 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/admin-logout")
 public class AdminLogoutCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Object admin = session.getAttribute("adminName");
-		if (admin != null) {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("adminName") != null) {
 			session.removeAttribute("adminName");
 		}
-		response.sendRedirect(request.getContextPath()+"/admin");
+		response.sendRedirect(request.getContextPath() + "/admin");
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

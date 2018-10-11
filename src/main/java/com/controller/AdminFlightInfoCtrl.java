@@ -13,6 +13,7 @@ import com.dto.Flight;
 import com.exception.DatabaseException;
 import com.exception.FileException;
 import com.exception.InputException;
+import com.util.FormatUtil;
 
 @WebServlet("/adminflightinfo")
 public class AdminFlightInfoCtrl extends HttpServlet {
@@ -23,23 +24,22 @@ public class AdminFlightInfoCtrl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		Integer flightId = FormatUtil.strToInteger(request.getParameter("flightId"));
 		try {
-			if (request.getParameter("flightId") == null) {
+			if (flightId == null) {
 				throw new InputException("Invalid flight information.");
-			}
-			int flightId = Integer.parseInt(request.getParameter("flightId"));
-			Flight flight = flightDao.getFlightById(flightId);
-			if (flight == null) {
-				throw new DatabaseException("Cannot get the flight information.");
 			} else {
-				request.setAttribute("flight", flight);
-				request.getRequestDispatcher("/admin_flight.jsp").forward(request, response);
+				Flight flight = flightDao.getFlightById(flightId);
+				if (flight == null) {
+					throw new DatabaseException("Cannot get the flight information.");
+				} else {
+					request.setAttribute("flight", flight);
+					request.getRequestDispatcher("/admin_flight.jsp").forward(request, response);
+				}
 			}
-			
 		} catch (InputException | FileException | DatabaseException e) {
 			response.sendRedirect(request.getContextPath()+"/admin_error?exception="+ e.getMessage());
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

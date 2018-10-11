@@ -12,6 +12,7 @@ import com.dao.FlightDaoImpl;
 import com.exception.DatabaseException;
 import com.exception.FileException;
 import com.exception.InputException;
+import com.util.FormatUtil;
 
 @WebServlet("/adminflightdelete")
 public class AdminDeleteFlightCtrl extends HttpServlet {
@@ -22,16 +23,17 @@ public class AdminDeleteFlightCtrl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		Integer flightId = FormatUtil.strToInteger(request.getParameter("flightId"));
 		try {
-			if (request.getParameter("flightId") == null) {
-				throw new InputException("Invalid input, cannot delete the flight.");
+			if (flightId == null) {
+				throw new InputException("Invalid input in deleting the flight.");
+			} else {
+				int row = flightDao.deleteFlight(flightId);
+				if (row == 0) {
+					throw new DatabaseException("Cannot delete the flight.");
+				}
+				response.sendRedirect(request.getContextPath() + "/admin_index");
 			}
-			int flightId = Integer.parseInt(request.getParameter("flightId"));
-			int row = flightDao.deleteFlight(flightId);
-			if (row == 0) {
-				throw new DatabaseException("Cannot delete the flight.");
-			}
-			response.sendRedirect(request.getContextPath() + "/admin_index");
 		} catch (InputException | FileException | DatabaseException e) {
 			response.sendRedirect(request.getContextPath() + "/admin_error?exception=" + e.getMessage());
 		}

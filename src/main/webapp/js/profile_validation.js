@@ -45,7 +45,7 @@ $('document').ready(function() {
 		},
 		messages : {
 			confirm_password : {
-				equalTo : "please enter the same password"
+				equalTo : "Password does not match"
 			}
 		}
 

@@ -36,8 +36,7 @@ public class HistoryCtrl extends HttpServlet {
 			for (Booking booking : bookingHistory) {
 				Flight flight = flightDao.getFlightById(booking.getFlightId());
 				if (flight == null)
-					response.sendRedirect(request.getContextPath() 
-							+ "/error?exception=Cannot get the flight information");
+					throw new DatabaseException("Cannot get the flight information");
 				map.put(booking, flight);
 			}
 			request.setAttribute("bookingHistory", map);

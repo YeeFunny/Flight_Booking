@@ -13,14 +13,15 @@ public class LogoutCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		if (session.getAttribute("passengerId") != null) {
-			session.removeAttribute("passengerId");
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			if (session.getAttribute("passengerId") != null) {
+				session.removeAttribute("passengerId");
+			}
+			if (session.getAttribute("passengerEmail") != null) {
+				session.removeAttribute("passengerEmail");
+			}
 		}
-		if (session.getAttribute("passengerEmail") != null) {
-			session.removeAttribute("passengerEmail");
-		}
-		
 		response.sendRedirect(request.getContextPath()+"/");
 	}
 

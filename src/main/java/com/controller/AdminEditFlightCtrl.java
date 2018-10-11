@@ -17,28 +17,32 @@ import com.dto.Flight;
 import com.exception.DatabaseException;
 import com.exception.FileException;
 import com.exception.InputException;
+import com.util.FormatUtil;
 
 @WebServlet("/admineditflight")
 public class AdminEditFlightCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	FlightDao flightDao = new FlightDaoImpl();
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		Integer flightId = FormatUtil.strToInteger(request.getParameter("flightId"));
+		String deptCity = request.getParameter("deptCity");
+		String arrCity = request.getParameter("arrCity");
+		LocalDate deptDate = FormatUtil.strToLocalDate(request.getParameter("deptDate"));
+		LocalTime deptTime = FormatUtil.strToLocalTime(request.getParameter("deptTime"));
+		LocalDate arrDate = FormatUtil.strToLocalDate(request.getParameter("arrDate"));
+		LocalTime arrTime = FormatUtil.strToLocalTime(request.getParameter("arrTime"));
 		try {
-			int flightId = Integer.parseInt(request.getParameter("flightId"));
-			String deptCity = request.getParameter("deptCity");
-			String arrCity = request.getParameter("arrCity");
-			LocalDate deptDate = LocalDate.parse(request.getParameter("deptDate"));
-			LocalTime deptTime = LocalTime.parse(request.getParameter("deptTime"));
-			LocalDate arrDate = LocalDate.parse(request.getParameter("arrDate"));
-			LocalTime arrTime = LocalTime.parse(request.getParameter("arrTime"));
-			
-			if (deptCity != null && arrCity != null && deptDate != null && deptTime != null
-					&& arrDate != null && arrTime != null && flightId != 0) {
-				System.out.println("");
-				Flight flight = new Flight(flightId, LocalDateTime.of(deptDate, deptTime), LocalDateTime.of(arrDate, arrTime),
-						deptCity, arrCity);
+			if (flightId != null && deptCity != null && arrCity != null && deptDate != null && deptTime != null
+					&& arrDate != null && arrTime != null) {
+				if (!LocalDateTime.of(deptDate, deptTime).isBefore(LocalDateTime.of(arrDate, arrTime))) {
+					throw new InputException("Invalid date and time information during adding flight.");
+				}
+				Flight flight = new Flight(flightId, LocalDateTime.of(deptDate, deptTime),
+						LocalDateTime.of(arrDate, arrTime), deptCity, arrCity);
 				int row = flightDao.updateFlight(flight);
 				if (row <= 0) {
 					throw new DatabaseException("Cannot update the flight information.");
@@ -46,10 +50,11 @@ public class AdminEditFlightCtrl extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/admin_index");
 				}
 			} else {
-				throw new InputException("Invalid input information.");
+				throw new InputException("Invalid input information during flight editing.");
 			}
 		} catch (DatabaseException | InputException | FileException e) {
-			response.sendRedirect(request.getContextPath() + "/admin_error?exception=" + e.getMessage());
+			response.sendRedirect(request.getContextPath() 
+					+ "/admin_error?exception=" + e.getMessage());
 		}
 	}
 

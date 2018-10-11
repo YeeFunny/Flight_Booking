@@ -39,9 +39,7 @@
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
         </div>
-        <c:if test="${param.errorMsg != null}">
-			<div class="alert alert-warning" role="alert">${param.errorMsg}</div>
-		</c:if>
+		<div class="alert alert-warning" style="display: none;" role="alert" id="emailalert">Email address has been used.</div>
 
         <div class="mb-3">
           <label for="password">Password</label>
@@ -83,11 +81,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.79/jquery.form-validator.min.js"></script>
-<script>
-  $.validate({
-    modules : 'date, security'
-  });
-</script>
+<script src="js/register.js"></script>
 </body>
 </html>
 

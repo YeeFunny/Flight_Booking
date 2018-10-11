@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/admin_addflight", "/admin_index"})
+@WebFilter(urlPatterns = { "/admin_addflight", "/admin_index", "/admin_error", "/allhistory"
+		, "/adminflightdelete", "/admineditflight", "/adminflightquery"})
 public class AdminManagementFilter implements Filter {
 
 	@Override

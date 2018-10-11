@@ -16,6 +16,7 @@ import com.dto.Flight;
 import com.exception.DatabaseException;
 import com.exception.FileException;
 import com.exception.InputException;
+import com.util.FormatUtil;
 
 @WebServlet("/adminflightquery")
 public class AdminFlightQueryCtrl extends HttpServlet {
@@ -24,14 +25,15 @@ public class AdminFlightQueryCtrl extends HttpServlet {
 	FlightDao flightDao = new FlightDaoImpl();
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String from = request.getParameter("from");
+		String to = request.getParameter("to");
+		LocalDate date = FormatUtil.strToLocalDate(request.getParameter("date"));
 		try {
-			if (request.getParameter("from") == null || request.getParameter("to") == null 
-					|| request.getParameter("date") == null) {
-				throw new InputException("Invalid input for flight query.");
+			if (from == null || to == null || date == null) {
+				throw new InputException("Invalid input during flight querying.");
 			}
-			String from = request.getParameter("from");
-			String to = request.getParameter("to");
-			LocalDate date = LocalDate.parse(request.getParameter("date"));
+			
 			List<Flight> flights = flightDao.getFlightsByCityDate(from, to, date);
 			if (flights == null) {
 				throw new DatabaseException("Cannot get information from database.");

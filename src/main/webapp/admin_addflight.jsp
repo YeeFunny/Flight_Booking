@@ -24,13 +24,11 @@
 	      <div class="row">
 	        <div class="col-md-6 mb-3">
 	          <label for="deptCity">Departure City</label>
-	          <input type="text" class="form-control" id="deptCity" name="deptCity" placeholder="Departure City"
-	                 data-validation="length" data-validation-length="min2" required>
+	          <input type="text" class="form-control" id="deptCity" name="deptCity" placeholder="Departure City" required>
 	        </div>
 	        <div class="col-md-6 mb-3">
 	          <label for="arrCity">Arrival City</label>
-	          <input type="text" class="form-control" id="arrCity" name="arrCity" placeholder="Arrival City"
-	                 data-validation="length" data-validation-length="min2" required>
+	          <input type="text" class="form-control" id="arrCity" name="arrCity" placeholder="Arrival City" required>
 	        </div>
 	      </div>
 	
@@ -83,6 +81,8 @@
 	  </div>
 	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 	<script src="js/airplane_info.js"></script>
 </body>
 </html>

@@ -21,6 +21,7 @@ import com.dto.FlightSeat;
 import com.exception.DatabaseException;
 import com.exception.FileException;
 import com.exception.InputException;
+import com.util.FormatUtil;
 
 @WebServlet("/flightquery")
 public class FlightQueryCtrl extends HttpServlet {
@@ -31,17 +32,17 @@ public class FlightQueryCtrl extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String from = request.getParameter("from");
+		String to = request.getParameter("to");
+		LocalDate date = FormatUtil.strToLocalDate(request.getParameter("date"));
 		try {
-			if (request.getParameter("from") == null || request.getParameter("to") == null 
-					|| request.getParameter("date") == null) {
-				throw new InputException("Invalid input for flight query.");
+			if (from == null || to == null || date == null) {
+				throw new InputException("Invalid input during flight querying.");
 			}
-			String from = request.getParameter("from");
-			String to = request.getParameter("to");
-			LocalDate date = LocalDate.parse(request.getParameter("date"));
+			
 			List<Flight> flights = flightDao.getFlightsByCityDate(from, to, date);
 			if (flights == null) {
-				throw new DatabaseException("Cannot get flight information.");
+				throw new DatabaseException("Cannot get flight list.");
 			} else {
 				Map<Flight, Boolean> map = new HashMap<>();
 				for (Flight flight : flights) {
@@ -57,7 +58,7 @@ public class FlightQueryCtrl extends HttpServlet {
 					map.put(flight, left);
 				}
 				request.setAttribute("flightList", map);
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				request.getRequestDispatcher("/").forward(request, response);
 			}	
 		} catch (FileException | DatabaseException | InputException e) {
 			response.sendRedirect(request.getContextPath() + "/error?exception=" + e.getMessage());

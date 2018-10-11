@@ -39,12 +39,13 @@ public class FlightSeatDaoImpl implements FlightSeatDao{
 	public int addFlightSeat(FlightSeat flightSeat) throws DatabaseException, FileException {
 		int row = 0;
 		String sql = "insert into flight_seat(flight_id, businessclass_left, firstclass_left, economyclass_left, version) "
-				+ "values (?, ?, ?, ?, 1)";
+				+ "values (?, ?, ?, ?, ?)";
 		try (Connection conn = DatabaseUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setInt(1, flightSeat.getFlightId());
 			ps.setInt(2, flightSeat.getBusinessLeft());
 			ps.setInt(3, flightSeat.getFirstLeft());
 			ps.setInt(4, flightSeat.getEconomyLeft());
+			ps.setInt(5, flightSeat.getVersion());
 			row = ps.executeUpdate();
 			System.out.println(row);
 			if (row == 0) {

@@ -23,8 +23,12 @@ public class ProfileInfoCtrl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		if (session == null)
+			response.sendRedirect(request.getContextPath()+"/");
+		if (session.getAttribute("passengerEmail") == null)
+			response.sendRedirect(request.getContextPath()+"/");
+		
 		String passengerEmail = (String) session.getAttribute("passengerEmail");
-
 		if (passengerEmail != null && !"".equals(passengerEmail)) {
 			try {
 				Passenger passenger = passengerDao.getPassengerByEmail(passengerEmail);

@@ -12,6 +12,7 @@ import com.dao.AdminDao;
 import com.dao.AdminDaoImpl;
 import com.exception.DatabaseException;
 import com.exception.FileException;
+import com.exception.InputException;
 
 @WebServlet("/admin-login")
 public class AdminLoginCtrl extends HttpServlet {
@@ -25,15 +26,19 @@ public class AdminLoginCtrl extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		try {
-			String adminName = adminDao.adminLogin(username, password);
-			if (adminName != null && !"".equals(adminName)) {
-				HttpSession session= request.getSession(true);
-				session.setAttribute("adminName", adminName);
-				request.getRequestDispatcher("/admin_index.jsp").forward(request, response);
+			if (username != null && password != null) {
+				String adminName = adminDao.adminLogin(username, password);
+				if (adminName != null && !"".equals(adminName)) {
+					HttpSession session= request.getSession(true);
+					session.setAttribute("adminName", adminName);
+					response.sendRedirect(request.getContextPath() + "/admin_index");
+				} else {
+					response.sendRedirect(request.getContextPath()+"/admin?errorMsg=Invalid username or password");
+				}
 			} else {
-				response.sendRedirect(request.getContextPath()+"/admin?errorMsg=Invalid username or password");
+				throw new InputException("Invalid input during admin login");
 			}
-		} catch (FileException | DatabaseException e) {
+		} catch (FileException | DatabaseException | InputException e) {
 			response.sendRedirect(request.getContextPath()+"/admin_error?exception="+ e.getMessage());
 		}
 

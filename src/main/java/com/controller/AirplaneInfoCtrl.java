@@ -19,10 +19,11 @@ import com.google.gson.Gson;
 @WebServlet("/airplaneinfo")
 public class AirplaneInfoCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	AirplaneDao airplaneDao = new AirplaneDaoImpl();
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			List<Airplane> list = airplaneDao.getAirplaneList();
 			if (list == null || list.size() == 0) {
@@ -36,7 +37,8 @@ public class AirplaneInfoCtrl extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

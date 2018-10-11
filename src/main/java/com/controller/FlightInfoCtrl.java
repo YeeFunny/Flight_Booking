@@ -16,24 +16,27 @@ import com.dto.FlightSeat;
 import com.exception.DatabaseException;
 import com.exception.FileException;
 import com.exception.InputException;
+import com.util.FormatUtil;
 
 @WebServlet("/flightinfo")
 public class FlightInfoCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	FlightSeatDao flightSeatDao = new FlightSeatDaoImpl();
-	FlightDao flightDao = new FlightDaoImpl();
+	FlightSeatDao flightSeatDao;
+	FlightDao flightDao;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		flightDao = new FlightDaoImpl();
+		flightSeatDao = new FlightSeatDaoImpl();
+		Integer flightId = FormatUtil.strToInteger(request.getParameter("flightId"));
 		try {
-			if (request.getParameter("flightId") == null) {
-				throw new InputException("Invalid input of flight information.");
+			if (flightId == null) {
+				throw new InputException("Invalid flight information.");
 			}
-			int flightId = Integer.parseInt(request.getParameter("flightId"));
-			FlightSeat flightSeat = flightSeatDao.getFlightSeatById(flightId);
-			if (flightSeat == null) {
+			FlightSeat seat = flightSeatDao.getFlightSeatById(flightId);
+			if (seat == null) {
 				throw new DatabaseException("Cannot get flight seat information.");
 			}
 			Flight flight = flightDao.getFlightById(flightId);
@@ -41,7 +44,7 @@ public class FlightInfoCtrl extends HttpServlet {
 				throw new DatabaseException("Cannot get flight information.");
 			}
 			request.setAttribute("flight", flight);
-			request.setAttribute("seat", flightSeat);
+			request.setAttribute("seat", seat);
 			request.getRequestDispatcher("/booking.jsp").forward(request, response);
 		} catch (InputException | DatabaseException | FileException e) {
 			response.sendRedirect(request.getContextPath() + "/error?exception=" + e.getMessage());

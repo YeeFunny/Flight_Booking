@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"
-	import="java.time.LocalDateTime, com.dto.Flight"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -23,24 +22,40 @@
 	      <div class="row">
           	<input type="hidden" id="flightId" name="flightId" value="${seat.getFlightId()}">
           	<input type="hidden" id="oldVersion" name="oldVersion" value="${seat.getVersion()}">
-	        <div class="col-md-3 mb-3" id="tickets">
+	        <div class="col-md-2 mb-3" id="tickets">
 	          <label for="business">Business (${seat.getBusinessLeft()} left)</label>
 	          <input type="hidden" id="businessLeft" name="businessLeft" value="${seat.getBusinessLeft()}">
-	          <input type="number" class="form-control ticket-group" id="business" name="business" placeholder="Number of Tickets">
+	          <input type="number" class="form-control ticket-group" id="business" name="business" placeholder="No. of Tickets">
 	        </div>
-	        <div class="col-md-3 mb-3">
+	        <div class="col-md-2 mb-3">
+	          <label for="busiBaggage">Baggage</label>
+	          <select class="custom-select d-block w-100" id="busiBaggage" name="busiBaggage" required>
+	            <option value="1" selected>1</option>
+	            <option value="2">2</option>
+	            <option value="0">No Baggage</option>
+	          </select>
+	        </div>
+	        <div class="col-md-2 mb-3">
 	          <label for="firstClass">First Class (${seat.getFirstLeft()} left)</label>
 	          <input type="hidden" id="firstLeft" name="firstLeft" value="${seat.getFirstLeft()}">
-	          <input type="number" class="form-control ticket-group" id="firstClass" name="firstClass" placeholder="Number of Tickets">
+	          <input type="number" class="form-control ticket-group" id="firstClass" name="firstClass" placeholder="No. of Tickets">
 	        </div>
-	        <div class="col-md-3 mb-3">
+	        <div class="col-md-2 mb-3">
+	          <label for="firstBaggage">Baggage</label>
+	          <select class="custom-select d-block w-100" id="firstBaggage" name="firstBaggage" required>
+	            <option value="1" selected>1</option>
+	            <option value="2">2</option>
+	            <option value="0">No Baggage</option>
+	          </select>
+	        </div>
+	        <div class="col-md-2 mb-3">
 	          <label for="economy">Economy (${seat.getEconomyLeft()} left)</label>
 	          <input type="hidden" id="economyLeft" name="economyLeft" value="${seat.getEconomyLeft()}">
-	          <input type="number" class="form-control ticket-group" id="economy" name="economy" placeholder="Number of Tickets">
+	          <input type="number" class="form-control ticket-group" id="economy" name="economy" placeholder="No. of Tickets">
 	        </div>
-	        <div class="col-md-3 mb-3">
-	          <label for="baggage">No. of Baggage</label>
-	          <select class="custom-select d-block w-100" id="baggage" name="baggage" required>
+	        <div class="col-md-2 mb-3">
+	          <label for="econoBaggage">Baggage</label>
+	          <select class="custom-select d-block w-100" id="econoBaggage" name="econoBaggage" required>
 	            <option value="1" selected>1</option>
 	            <option value="2">2</option>
 	            <option value="0">No Baggage</option>

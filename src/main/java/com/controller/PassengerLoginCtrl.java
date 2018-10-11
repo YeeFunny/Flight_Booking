@@ -13,6 +13,7 @@ import com.dao.PassengerDaoImpl;
 import com.dto.Passenger;
 import com.exception.DatabaseException;
 import com.exception.FileException;
+import com.exception.InputException;
 
 @WebServlet("/passenger-login")
 public class PassengerLoginCtrl extends HttpServlet {
@@ -26,6 +27,9 @@ public class PassengerLoginCtrl extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		try {
+			if (email == null || password == null) {
+				throw new InputException("Invalid passenger information.");
+			}
 			Passenger passenger = passengerDao.passengerLogin(email, password);
 			if (passenger != null) {
 				HttpSession session= request.getSession(true);
@@ -39,7 +43,7 @@ public class PassengerLoginCtrl extends HttpServlet {
 			} else {
 				response.sendRedirect(request.getContextPath()+"/login?errorMsg=Invalid username or password");
 			}
-		} catch (FileException | DatabaseException e) {
+		} catch (FileException | DatabaseException | InputException e) {
 			response.sendRedirect(request.getContextPath()+"/error?exception="+ e.getMessage());
 		}
 	}

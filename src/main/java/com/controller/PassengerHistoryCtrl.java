@@ -20,6 +20,7 @@ import com.dto.Booking;
 import com.dto.Flight;
 import com.exception.DatabaseException;
 import com.exception.FileException;
+import com.util.FormatUtil;
 
 @WebServlet("/passenger-history")
 public class PassengerHistoryCtrl extends HttpServlet {
@@ -31,25 +32,25 @@ public class PassengerHistoryCtrl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		Object passengerId = session.getAttribute("passengerId");
+		if (session == null) {
+			response.sendRedirect(request.getContextPath()+"/");
+		}
+		Integer passengerId = FormatUtil.objToInteger(session.getAttribute("passengerId"));
 		if (passengerId != null) {
 			try {
-				int id = (int) passengerId;
-				List<Booking> bookingHistory = bookingDao.BookingHistoryByPassengerId(id);
+				List<Booking> bookingHistory = bookingDao.BookingHistoryByPassengerId(passengerId);
 				Map<Booking, Flight> map = new HashMap<>();
 				for (Booking booking : bookingHistory) {
 					Flight flight = flightDao.getFlightById(booking.getFlightId());
 					if (flight == null)
-						response.sendRedirect(request.getContextPath() 
-								+ "/error?exception=Cannot get the flight information");
+						throw new DatabaseException("Cannot get the flight information");
 					map.put(booking, flight);
 				}
 				request.setAttribute("bookingHistory", map);
 				request.getRequestDispatcher("/history.jsp").forward(request, response);
 			} catch (FileException | DatabaseException e) {
-				response.sendRedirect(request.getContextPath() + "/error?exception=" + e.getMessage());
+				response.sendRedirect(request.getContextPath()+"/error?exception="+e.getMessage());
 			}
-
 		} else {
 			response.sendRedirect(request.getContextPath() + "/");
 		}
